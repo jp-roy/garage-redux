@@ -4,4 +4,12 @@
   height: 100%;
   flex: 0 0 30%;
   background-color: white;
+
+  img {
+    height: 200px;
+  }
+
+  .information {
+    flex-grow: 1;
+  }
 }
