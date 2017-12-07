@@ -6,7 +6,7 @@ import About from '../components/about.jsx';
 
 class CarsNew extends Component {
   onSubmit = (values) => {
-    this.props.createCar(values, (car) => {
+    this.props.createCar(values, this.props.garage, (car) => {
       this.props.history.push('/'); // Navigate after submit
       return car;
     });
@@ -65,6 +65,13 @@ class CarsNew extends Component {
   }
 }
 
+
+function mapStateToProps(state) {
+  return {
+    garage: state.garage
+  }
+}
+
 export default reduxForm({ form: 'newCarForm' })(
-  connect(null, { createCar })(CarsNew)
+  connect(mapStateToProps, { createCar })(CarsNew)
 );

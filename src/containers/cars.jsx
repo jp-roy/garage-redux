@@ -13,18 +13,17 @@ class Cars extends Component {
   }
 
   renderCars() {
+
     return this.props.cars.map((car) => {
       return (
-        <div className="cars">
-          <Link to={`/cars/${car.id}`} key={car.id}>
-            <div className="car-item">
-              <div className="car-picture"></div>
-              <h3>{`${car.brand} - ${car.model}`}</h3>
-              <p>{car.owner}</p>
-              <div>{car.plate}</div>
-            </div>
-          </Link>
-        </div>
+        <Link to={`/cars/${car.id}`} key={car.id}>
+          <div className="car-item">
+            <div className="car-picture"></div>
+            <h3>{`${car.brand} - ${car.model}`}</h3>
+            <p>{car.owner}</p>
+            <div>{car.plate}</div>
+          </div>
+        </Link>
       );
     });
   }
@@ -33,7 +32,9 @@ class Cars extends Component {
     return (
       <div className="main">
         <About />
-        {this.renderCars()}
+        <div className="cars">
+          {this.renderCars()}
+        </div>
       </div>
     );
   }
