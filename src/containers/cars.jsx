@@ -31,7 +31,7 @@ class Cars extends Component {
   render() {
     return (
       <div className="main">
-        <About />
+        <About page="cars" />
         <div className="cars">
           {this.renderCars()}
         </div>

@@ -4,6 +4,8 @@ import { reduxForm, Field } from 'redux-form';
 import { createCar } from '../actions';
 import About from '../components/about.jsx';
 
+import { required, format } from '../utils/validations.js';
+
 class CarsNew extends Component {
   onSubmit = (values) => {
     this.props.createCar(values, this.props.garage, (car) => {
@@ -12,15 +14,18 @@ class CarsNew extends Component {
     });
   }
 
-  renderField(field) {
+  renderField = (field) => {
+    const { input, label, type, meta: { touched, error }} = field;
+    const formClasses = `form-group ${error && touched ? "has-error" : null}`;
     return (
-      <div className="form-group">
-        <label>{field.label}</label>
-        <input
+      <div className={formClasses}>
+        <label className="control-label">{label}</label>
+        <input {...input}
           className="form-control"
-          type={field.type}
-          {...field.input}
+          placeholder={label}
+          type={type}
         />
+        {touched && ((error && <span class="help-block">{error}</span>))}
       </div>
     );
   }
@@ -28,7 +33,7 @@ class CarsNew extends Component {
   render() {
     return (
       <div className="main">
-        <About />
+        <About page="cars_new"/>
         <div className="cars">
           <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
             <Field
@@ -36,24 +41,28 @@ class CarsNew extends Component {
               name="brand"
               type="text"
               component={this.renderField}
+              validate={[ required ]}
             />
             <Field
               label="Model"
               name="model"
               type="text"
               component={this.renderField}
+              validate={[ required ]}
             />
             <Field
               label="Owner"
               name="owner"
               type="text"
               component={this.renderField}
+              validate={[ required ]}
             />
             <Field
               label="Plate"
               name="plate"
               type="text"
               component={this.renderField}
+              validate={[ required, format ]}
             />
             <button className="btn btn-primary" type="submit" disabled={this.props.pristine || this.props.submitting}>
               Add car
